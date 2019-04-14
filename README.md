@@ -1,0 +1,2 @@
+# VeloMag
+django training project
