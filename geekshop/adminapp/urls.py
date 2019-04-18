@@ -18,6 +18,8 @@ urlpatterns = [
     path('products/<int:pk>', adminapp.products, name='products'),
     path('product_create/<int:pk>', adminapp.product_create, name='product_create'),
     path('product_update/<int:pk>', adminapp.product_update, name='product_update'),
-    path('product_delete/<int:pk>', adminapp.product_delete, name='product_delete')
+    path('product_delete/<int:pk>', adminapp.product_delete, name='product_delete'),
+    path('product_value/<int:pk>/<int:quantity>/', adminapp.product_value, name='product_value'),
+    path('product_price/<int:pk>/<str:price>/', adminapp.product_price, name='product_price')
     # path('edit/', authapp.edit, name='edit'),
 ]

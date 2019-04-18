@@ -5,6 +5,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
 from .forms import ShopUserCreationAdminForm, ShopUserUpdateAdminForm
@@ -150,6 +152,7 @@ def products(request, pk):
         'category': category,
         'object_list': object_list
     }
+
     return render(request, 'adminapp/product_list.html', context)
 
 
@@ -209,3 +212,39 @@ def product_delete(request, pk):
         'category': category
     }
     return render(request, 'adminapp/product_delete.html', context)
+
+@user_passes_test(lambda x: x.is_superuser)
+def product_price(request, pk, price):
+    if request.is_ajax():
+        product = get_object_or_404(Product, pk=pk)
+        price = float(price)
+        if price > 0.0:
+            product.price = price
+            product.save()
+        context = {
+            'object': product
+        }
+        result= render_to_string('adminapp/includes/inc__product_props.html', context)
+
+        return JsonResponse({'result': result})
+
+
+@user_passes_test(lambda x: x.is_superuser)
+def product_value(request, pk, quantity):
+
+    if request.is_ajax():
+        product = get_object_or_404(Product, pk=pk)
+        quantity = int(quantity)
+
+        if quantity > 0:
+            product.quantity = quantity
+        else:
+            product.is_active = False
+
+        product.save()
+        context = {
+            'object': product
+        }
+        result = render_to_string('adminapp/includes/inc__product_props.html', context)
+
+        return JsonResponse({'result': result})
