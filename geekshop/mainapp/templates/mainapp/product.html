@@ -1,0 +1,20 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'mainapp/includes/inc__main_menu.html' %}
+    <h1>
+        {{ product.name }}
+    </h1>
+        <h2>
+            {{ product.short_desc }}
+        </h2>
+        <a href="/media/{{ product.image }}" target="_blank">
+					<img src="/media/{{ product.image }}" alt="фотография {{ product.name }}" title="{{ product.name }}"></a>
+        <p>
+            {{ product.description}}
+        </p>
+        <p>Цена: {{ product.price }}  </p>
+        <p>На складе: {{ product.quantity }} </p>
+        <a class="btn-round" href="{% url 'basket:add' product.id %}">Добавить в корзину</a>
+{% endblock %}
+

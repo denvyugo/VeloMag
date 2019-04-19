@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="UTF-8">
+	{% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	{% endblock %}
+	{% block js %}
+	<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/product_scripts.js' %}"></script>
+	{% endblock %}
+	<title>
+		{% block title %}
+			{{ title|title }}
+		{% endblock %}
+	</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Управление</h1>
+		{% block menu %}
+			{% include 'adminapp/includes/inc__admin_menu.html' %}
+		{% endblock %}
+		{% block container %}
+		{% endblock %}
+		<!-- Подвал -->
+		<footer>
+		<div class="footer">&copy;2018 Все права защищены</div>
+		</footer>
+		<!-- /Подвал -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<div>
+	<ul class="menu-user">
+		<li><a href="{% url 'main:index' %}"> На главную</a></li>
+		<li><a href="{% url 'myadmin:index' %}" class="{% if request.resolver_match.url_name == 'index' %}menulink-active{% endif %}">Пользователи</a></li>
+		<li><a href="{% url 'myadmin:categories' %}" class="{% if request.resolver_match.url_name == 'categories' or category.name %}menulink-active{% endif %}">Категории{% if category %}: {{ category.name }}{% endif %}</a></li>
+	</ul>
+</div>

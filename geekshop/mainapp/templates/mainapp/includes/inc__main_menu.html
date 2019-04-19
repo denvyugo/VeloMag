@@ -1,0 +1,43 @@
+{% block menu %}
+		<!-- Меню -->
+		<ul class="menu-user">
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'auth:edit' %}">
+                    {{ user.first_name|default:'Пользователь' }}
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'auth:logout' %}">выйти</a>
+                {% else %}
+                    <a href="{% url 'auth:login' %}">войти</a>
+                {% endif %}
+            </li>
+            </ul>	
+		<header>
+            <a href="{% url 'main:index' %}"><img src="/static/img/logo.png" alt="логотип интернет магазина ВелоМаг" title="логотип"></a>
+            
+        
+			<ul class="menulist">
+				<li><a href="{% url 'main:index' %}" 
+				class="{% if request.resolver_match.url_name == 'index' %}menulink-active{% endif %}">Главная</a></li>
+				<li><a href="{% url 'main:catalog' 1 %}" 
+				class="{% if request.resolver_match.url_name == 'catalog' or request.resolver_match.url_name == 'category' %}
+				        menulink-active{% endif %}">Каталог</a></li>
+				<li><a href="{% url 'main:contacts' %}" 
+				class="{% if request.resolver_match.url_name == 'contacts' %}menulink-active{% endif %}">Контакты</a></li>
+				<li><a href="{% url 'basket:index' %}"><i class="fas fa-shopping-basket">
+				    <span>
+				        {% if basket %} 
+				            {{ basket.0.total_cost|floatformat:0 }} руб.
+				            {{ basket.0.total_quantity}} шт.
+				        {% endif %}
+				    </span>
+				</i></a></li>
+			</ul>
+		
+		</header>
+		<!-- /Меню -->
+{% endblock %}

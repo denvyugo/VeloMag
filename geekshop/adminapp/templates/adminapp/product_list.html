@@ -1,0 +1,22 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% block container %}
+<div class="product-list">
+	<div class="category-name">
+		<strong>{{ category.name }}</strong>
+		<a href="{% url 'myadmin:product_create' category.pk %}" class="btn btn-primary">new product</a>
+	</div>
+	{% for object in object_list %}
+	<div class="product-record {% if not object.is_active %}not-active{% endif %}">
+		<img src="/media/{{ object.image }}" alt="{{ object.short_desc }}">
+		<div class="product_desc">
+			{% include 'adminapp/includes/inc__product_props.html' %}
+		</div>
+		<div class="product-action">
+			<a href="{% url 'myadmin:product_update' object.pk %}" class="btn btn-primary">edit</a>
+			<a href="{% url 'myadmin:product_delete' object.pk %}" class="btn btn-danger">delete</a>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}

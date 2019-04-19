@@ -1,0 +1,15 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block container %}
+   <div class="user_avatar"><img src="/media/{{ shopuser.avatar|default:'users_avatars/default.jpeg' }}"></div>
+    <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <br>
+        <input class="form-control" type="submit" value="сохранить">
+    </form>
+    <a href="{% url 'myadmin:index' %}" class="btn btn-light form-control">
+        К списку пользователей
+    </a>
+{% endblock %}

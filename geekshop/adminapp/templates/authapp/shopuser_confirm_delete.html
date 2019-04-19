@@ -1,0 +1,14 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% block menu %}
+{% endblock %}
+{% block container %}
+    <div class="user_delete">
+    	Уверены, что хотите удалить <b>{{ shopuser.username }}</b>?
+    </div>
+    <form class="form-horizontal" action="{% url 'myadmin:user_delete' shopuser.pk %}" method="POST">
+        {% csrf_token %}
+        <input class="btn btn-danger form-control" type="submit" value="Удалить">
+    </form>
+    <a href="{% url 'myadmin:index' %}" class="btn btn-success form-control">Отмена</a>
+{% endblock %}

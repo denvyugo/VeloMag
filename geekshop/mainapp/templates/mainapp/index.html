@@ -1,0 +1,27 @@
+{% extends 'mainapp/base.html' %}
+{% load my_tags %}
+{% block content %}
+{% include 'mainapp/includes/inc__main_menu.html' %}
+<h1>Главная страница</h1>
+    <h2>ВелоМаг</h2>
+    <p>Добро пожаловать в интернет магазин личной колёсной техники &laquo;ВелоМаг&raquo;!</p>
+    <p>В нашем магазине хороший выбор отличных велосипедов и самокатов</p>
+    {% block hot_product %}
+		{% if hot_product %}
+		<h2>Горячее предложение</h2>
+		<div class="catalog">
+			<a href="{% url 'main:product' hot_product.id %}"><img src="{{ hot_product.image|media_products }}" alt="фотография {{ hot_product.name }}" title=" {{ hot_product.name }}"><p>{{ hot_product.short_desc }}</p></a>
+		</div>
+		{% endif %}
+	{% endblock %}
+    {% block same_products %}
+		{% if same_products %}
+		<h2>Похожие товары</h2>
+		<div class="catalog">
+		{% for product in same_products %}
+			<a href="{% url 'main:product' product.id %}"><img src="{{ product.image|media_products }}" alt="фотография {{ product.name}}" title="{{ product.name }}"><p>{{ product.short_desc }} </p></a>
+		{% endfor %}
+		</div>
+		{% endif %}
+	{% endblock %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block content %}
+    {% include 'mainapp/includes/inc__main_menu.html' %}
+		<h1>Каталог товаров</h1>
+			<h3>
+			    <ul class="menu-category">
+                    {% block categories_menu %}
+                        {% for category in categories %}
+                        <li><a href="{% url 'main:category' category.id 1 %}"
+                           class="{% if request.resolver_match.kwargs.pk|add:0 == category.id %}
+                           menu-category-active{% endif %}">
+                            {{ category.id }}
+                            {{ category.name }}
+                        </a></li>
+                        {% endfor %}
+                    {% endblock %}
+			    </ul>    
+			</h3>
+			<!-- ul>li*5>a[href="catalog/item$$$.html"]>{item$$$} -->
+			<div class="paginator">
+				{% if products.has_previous %}
+					{% if request.resolver_match.kwargs.pk %}
+						<a href="{% url 'mainapp:category' request.resolver_match.kwargs.pk products.previous_page_number %}">&lt;</a>
+					{% else %}
+						<a href="{% url 'mainapp:catalog' products.previous_page_number %}">&lt;</a>
+					{% endif %}
+				{% endif %}
+				<span class="current">
+					страница {{ products.number }} из {{ products.paginator.num_pages }}
+				</span>
+				{% if products.has_next %}
+					{% if request.resolver_match.kwargs.pk %}
+						<a href="{% url 'mainapp:category' request.resolver_match.kwargs.pk products.next_page_number %}">&gt;</a>
+					{% else %}
+						<a href="{% url 'mainapp:catalog' products.next_page_number %}">&gt;</a>
+					{% endif %}
+				{% endif %}
+			</div>
+			<div class="catalog">
+			    {% block products_list %}
+			        {% for product in products %}
+			            <a href="{% url 'main:product' product.id %}"><img src="{{ product.image|media_products }}" alt="фотография {{ product.name}}" title="{{ product.name }}"><p>{{ product.short_desc }} </p></a>
+			         {% endfor %}
+			     {% endblock %}
+			</div>    
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+    {% include 'mainapp/includes/inc__main_menu.html' %}
+		<h1>Контакты</h1>
+		<!-- Форма для контактов -->
+		<form class="contactform" action="">
+			<fieldset>
+				<legend>Напишите нам</legend>
+				Имя:&nbsp;<input type="text" size="30" placeholder="Имя"><br>
+				Электронная почта:&nbsp;<input type="text" size="30" placeholder="Email"><br>
+				Тема:&nbsp;<input type="text" size="30" placeholder="Тема"><br>
+				<p>Сообщение:</p><textarea cols="100" rows="10"></textarea><br>
+				<label><input type="checkbox" name="">Присылать информацию об акциях</label><br>
+				<button type="submit">Отправить</button><button type="reset">Очистить</button>
+			</fieldset>
+		</form>
+		<!-- /Форма для контактов -->
+		<h1>Пункт получения товара</h1>
+		<p>
+			Тел: +7 (342) 234-74-95 <br>
+			Email: <a href="mailto:recieve@velomag.com"></a>recieve@velomag.combr <br>
+			Адрес: 758456, Город, ул. Ленина, д. 19, оф. 234
+		</p>
+		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1595.705051875592!2d39.749971561074474!3d54.623473459843254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1544043181103" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+{% endblock %}
