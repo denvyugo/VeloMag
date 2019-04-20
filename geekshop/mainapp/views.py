@@ -8,12 +8,6 @@ from .models import Product, ProductCategory
 # Create your views here.
 LIMIT = 3
 
-def get_basket(request):
-    if request.user.is_authenticated:
-        return request.user.basket.all()
-    else:
-        return []
-
 
 def get_hot_product():
     products = Product.objects.filter(is_active=True, category__is_active=True)
@@ -34,7 +28,6 @@ def index(request):
     same_products = get_same_products(hot_product)
     context = {
         'page_title': 'Главная',
-        'basket': get_basket(request),
         'hot_product': hot_product,
         'same_products': same_products
     }
@@ -57,7 +50,6 @@ def catalog(request, page=1):
         'page_title': title,
         'categories': categories,
         'products': products,
-        'basket': get_basket(request)
     }
 
     return render(request, 'mainapp/catalog.html', context=context)
@@ -82,7 +74,6 @@ def category(request, pk, page=1):
         'page_title': 'Товары в категории',
         'categories': categories,
         'products': products,
-        'basket': get_basket(request)
     }
     return render(request, 'mainapp/catalog.html', context=context)
 
@@ -93,7 +84,6 @@ def product(request, pk):
         context = {
             'page_title': item.name,
             'product': item,
-            'basket': get_basket(request)
         }
         return render(request, 'mainapp/product.html', context=context)
     else:
@@ -103,6 +93,5 @@ def product(request, pk):
 def contacts(request):
     context = {
         'page_title': 'Контакты',
-        'basket': get_basket(request)
     }
     return render(request, 'mainapp/contacts.html', context=context)
