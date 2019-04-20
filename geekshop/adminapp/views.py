@@ -29,7 +29,7 @@ class UsersListView(ListView):
 class UsersCreateView(CreateView):
     model = ShopUser
     success_url = reverse_lazy('myadmin:index')
-    #fields = '__all__'
+    # fields = '__all__'
     form_class = ShopUserCreationAdminForm
 
     @method_decorator(user_passes_test(lambda x: x.is_superuser))
@@ -213,6 +213,7 @@ def product_delete(request, pk):
     }
     return render(request, 'adminapp/product_delete.html', context)
 
+
 @user_passes_test(lambda x: x.is_superuser)
 def product_price(request, pk, price):
     if request.is_ajax():
@@ -224,7 +225,7 @@ def product_price(request, pk, price):
         context = {
             'object': product
         }
-        result= render_to_string('adminapp/includes/inc__product_props.html', context)
+        result = render_to_string('adminapp/includes/inc__product_props.html', context)
 
         return JsonResponse({'result': result})
 
