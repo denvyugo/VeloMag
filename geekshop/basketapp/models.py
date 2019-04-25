@@ -12,13 +12,13 @@ class Basket(models.Model):
 
     @property
     def product_cost(self):
-        "return cost of all products this type"
+        """return cost of all products this type"""
         return self.product.price * self.quantity
 
 
     @property
     def total_quantity(self):
-        "return total quantity of product in user's basket"
+        """return total quantity of product in user's basket"""
         _items = Basket.objects.filter(user=self.user)
         _totalquantity = sum(list(map(lambda x: x.quantity, _items)))
         return _totalquantity
@@ -26,7 +26,7 @@ class Basket(models.Model):
 
     @property
     def total_cost(self):
-        "return total cost of all products in user's basket"
+        """return total cost of all products in user's basket"""
         _items = Basket.objects.filter(user=self.user)
         _totalcost = sum(list(map(lambda x: x.product_cost, _items)))
         return _totalcost
