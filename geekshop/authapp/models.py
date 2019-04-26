@@ -19,3 +19,18 @@ class ShopUser(AbstractUser):
 
     def is_activation_key_expired(self):
         return now() > self.activation_key_expires
+
+
+class ShopUserProfile(models.Model):
+    MALE = 'M'
+    FEMALE = 'F'
+
+    GENDER_CHOICES = (
+        (MALE, 'M'),
+        (FEMALE, 'F'),
+    )
+
+    user = models.OneToOneField(ShopUser, on_delete=models.CASCADE)
+    tagline = models.CharField(verbose_name='tags', max_length=128, blank=True)
+    aboutMe = models.TextField(verbose_name='about me', max_length=512, blank=True)
+    gender = models.CharField(verbose_name='gender', max_length=1, choices=GENDER_CHOICES, blank=True)
