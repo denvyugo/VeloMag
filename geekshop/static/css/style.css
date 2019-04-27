@@ -37,7 +37,7 @@ header img {
 .menulist {
 	display: flex;
 	margin-right: 30px;
-	margin-top: 95px;
+	margin-top: 90px;
 }
 
 .menulist li {
@@ -67,22 +67,36 @@ header img {
     margin-bottom: 0px;
     margin-top: 0px;
     justify-content: flex-end;
-}
-
-.menu-user ul {
-    box-sizing: border-box;
-    margin: 0, 0;
-}
-
-.menu-user li {
-    font-style: italic;
-    font-size: 20px;
-    list-style-type: none;
-    margin-left: 10px;
+    background-color: #f8f8f0;
+    position: relative;
+    z-index: 1;
 }
 
 .menu-user a {
     text-decoration: none;
+}
+
+.menu-li {
+    text-align: left;
+    font-style: italic;
+    font-size: 20px;
+    list-style-type: none;
+    margin-left: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.menu-li:hover .menu-in {
+    display: block;
+}
+
+.menu-in {
+    display: none;
+}
+
+.menu-in a:hover {
+    color: red;
+    border-bottom: 1px solid black;
 }
 
 /* menu categories */
