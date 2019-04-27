@@ -1,17 +1,17 @@
 window.onload = function () {
-    $("#product-value").on("change", "input[type='number']", function (event) {
+     $(".product-list").on("change", "input[id='product-price']", function (event) {
         var target = event.target;
         $.ajax({
-            url: "/myadmin/product_value/" + target.name + "/" + target.value + "/",
+            url: "/myadmin/product_price/" + target.name + "/" + target.value + "/",
             success: function (data) {
                 $(".product-desc").html(data.result);
             }
         });
     });
-	$("#product-price").on("change", "input[type='number']", function (event) {
+    $(".product-list").on("change", "input[id='product-value']", function (event) {
         var target = event.target;
         $.ajax({
-            url: "/myadmin/product_price/" + target.name + "/" + target.value + "/",
+            url: "/myadmin/product_value/" + target.name + "/" + target.value + "/",
             success: function (data) {
                 $(".product-desc").html(data.result);
             }
