@@ -3,6 +3,7 @@ from django.conf import settings
 
 register = template.Library()
 
+
 def media_products(string):
     """
     Автоматически добавляет относительный URL-путь к медиафайлам продуктов
