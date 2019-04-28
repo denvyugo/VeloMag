@@ -8,7 +8,7 @@
                     {{ user.first_name|default:'Пользователь' }}
                 </a>
                 <ul class="menu-in">
-                    <li class="menu-li"><a href="#">Заказ</a></li>
+                    <li class="menu-li"><a href="{% url 'order:orders_list' %}">Заказ</a></li>
                     {% if user.is_authenticated and user.is_superuser %}
                     <li class="menu-li"><a href="{% url 'myadmin:index' %}">Управление</a></li>
                     {% endif %}

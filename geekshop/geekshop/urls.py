@@ -25,7 +25,7 @@ urlpatterns = [
     path('auth/verify/vk/oauth2/', include('social_django.urls', namespace='social')),
     path('basket/', include('basketapp.urls', namespace='basket')),
     path('myadmin/', include('adminapp.urls', namespace='myadmin')),
-    path('order/', include('ordersapp.urls', namespace='orders')),
+    path('order/', include('ordersapp.urls', namespace='order')),
 ]
 #path('admin/', admin.site.urls),
 

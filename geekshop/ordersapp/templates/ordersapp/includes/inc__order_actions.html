@@ -1,0 +1,11 @@
+{% if object.status == 'FRM' %}
+    <a href="{#% url 'order:order_forming_complete' object.pk %#}" class="btn btn-warning form-control">купить</a>
+    <a href="{#% url 'order:order_delete' object.pk %#}" class="btn btn-danger form-control">удалить</a>
+{% endif %}
+<a href="{% url 'order:orders_list' %}" class="btn btn-round form-control">
+    к списку заказов
+</a>
+<a href="{% url 'main:index' %}" class="btn btn-round form-control">
+    на главную
+</a>
+   
