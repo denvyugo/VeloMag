@@ -4,8 +4,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-
-from ordersapp.forms import OrderItemForm
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from ordersapp.forms import OrderItemForm, OrderItemsUpdateForm
 from ordersapp.models import Order, OrderItem
 
 
@@ -68,7 +69,7 @@ class OrderItemsUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
+        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsUpdateForm, extra=1)
         if self.request.POST:
             data['orderitems'] = OrderFormSet(self.request.POST, instance=self.object)
         else:
@@ -110,5 +111,22 @@ class OrderDelete(DeleteView):
 def order_forming_complete(request, pk):
     order = get_object_or_404(Order, pk=pk)
     order.status = Order.SENT_TO_PROCEED
+    print('sent to proceed')
     order.save()
     return HttpResponseRedirect(reverse('order:orders_list'))
+
+
+@receiver(pre_save, sender=Order)
+def product_quantity_update_save(sender, update_fields, instance, **kwargs):
+    order = instance
+    if order.status == Order.SENT_TO_PROCEED:
+        basket_items = order.user.basket.all()
+        order_items = order.orderitems.all()
+        for order_item in order_items:
+            basket_item = basket_items.filter(product=order_item.product).first()
+            if basket_item is not None:
+                if order_item.quantity >= basket_item.quantity:
+                    basket_item.delete()
+                else:
+                    basket_item.quantity -= order_item.quantity
+                basket_item.save()

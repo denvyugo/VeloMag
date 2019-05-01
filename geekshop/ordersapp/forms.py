@@ -23,3 +23,21 @@ class OrderItemForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+            if field_name == 'price':
+                field.widget = forms.HiddenInput()
+
+
+class OrderItemsUpdateForm(forms.ModelForm):
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            if field_name == 'price':
+                field.widget.attrs['readonly'] = True
+
+    def clean_price(self):
+        return self.instance.price

@@ -8,7 +8,7 @@ from mainapp.models import ProductCategory, Product
 class ShopUserCreationAdminForm(UserCreationForm):
     class Meta:
         model = ShopUser
-        fields= ('username', 'first_name', 'password1', 'password2',
+        fields = ('username', 'first_name', 'password1', 'password2',
                  'email', 'age', 'avatar', 'is_superuser')
 
     def __init__(self, *args, **kwargs):
