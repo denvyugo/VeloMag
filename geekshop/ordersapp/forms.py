@@ -1,5 +1,6 @@
 from django import forms
 
+from mainapp.models import Product
 from ordersapp.models import Order, OrderItem
 
 
@@ -21,6 +22,7 @@ class OrderItemForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['product'].queryset = Product.get_items()
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             if field_name == 'price':
@@ -34,6 +36,7 @@ class OrderItemsUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['product'].queryset = Product.get_items()
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             if field_name == 'price':
