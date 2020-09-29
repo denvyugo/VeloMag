@@ -1,2 +1,2 @@
 # VeloMag
-django training project
+django training Online Store project.
